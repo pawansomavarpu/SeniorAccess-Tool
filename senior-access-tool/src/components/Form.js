@@ -4,8 +4,16 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const Form = () => {
   const [firstName, setFirstName] = React.useState('');
+  const [middleName, setMiddleName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [cellPhone, setCellPhone] = React.useState('');
+  const [homePhone, setHomePhone] = React.useState('');
+  const [companyPhone, setCompanyPhone] = React.useState('');
+  const [accountNum, setAccountNum] = React.useState('');
+  const [donorType, setDonorType] = React.useState('');
+  const [gender, setGender] = React.useState('');
+
   const [users, setUsers] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
   const [openErrorModal, setOpenErrorModal] = React.useState(false);
@@ -104,6 +112,13 @@ const Form = () => {
         />
         <TextField
           type="text"
+          label="Middle Name"
+          onChange={e => setMiddleName(e.target.value)}
+          value={middleName}
+          fullWidth
+        />
+        <TextField
+          type="text"
           label="Last Name"
           onChange={e => setLastName(e.target.value)}
           value={lastName}
@@ -118,6 +133,52 @@ const Form = () => {
         fullWidth
         sx={{ mb: 4 }}
       />
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+          type="tel"
+          label="Cell Phone"
+          onChange={e => setCellPhone(e.target.value)}
+          value={cellPhone}
+          fullWidth
+        />
+        <TextField
+          type="tel"
+          label="Home Phone"
+          onChange={e => setHomePhone(e.target.value)}
+          value={homePhone}
+          fullWidth
+        />
+        <TextField
+          type="tel"
+          label="Company Phone"
+          onChange={e => setCompanyPhone(e.target.value)}
+          value={companyPhone}
+          fullWidth
+        />
+      </Stack>
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+          type="text"
+          label="Account Number"
+          onChange={e => setAccountNum(e.target.value)}
+          value={accountNum}
+          fullWidth
+        />
+        <TextField
+          type="text"
+          label="Donor Type"
+          onChange={e => setDonorType(e.target.value)}
+          value={donorType}
+          fullWidth
+        />
+        <TextField
+          type="text"
+          label="Gender"
+          onChange={e => setGender(e.target.value)}
+          value={gender}
+          fullWidth
+        />
+      </Stack>
       <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }} justifyContent="flex-end">
         <Button variant="outlined" onClick={handleOpenModal}>See Previously Added Users</Button>
         <Button variant="outlined" onClick={handleAddUser}>{editIndex ? "Update Contact" : "Add New Contact"}</Button>

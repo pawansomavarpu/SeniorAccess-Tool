@@ -6,6 +6,10 @@ import Button from '@mui/material/Button';
 import Form from './components/Form';
 
 function App() {
+  const getUploadedFile = (event) => {
+    console.log("in getUploadedFile")
+  };
+
   return (
     <div className="App">
       <Container>
@@ -40,7 +44,10 @@ function App() {
           <br /> 3. Repeat these steps for the next contact. 
           <br />
             <br />When you have finished adding all contacts, press "Generate CSV" to review and download your file.</p>
-          <Form />
+            <Stack sx={{ marginBottom: 2 }} direction="row" justifyContent="flex-end">
+              <Button variant="outlined" onClick={getUploadedFile}>Upload File</Button>
+            </Stack>
+          <Form/>
 
         </Container>
         
