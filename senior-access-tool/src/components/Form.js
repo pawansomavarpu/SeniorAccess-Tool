@@ -14,6 +14,42 @@ const Form = () => {
   const [donorType, setDonorType] = React.useState('');
   const [gender, setGender] = React.useState('');
 
+  const [householdName, setHouseholdName] = React.useState('');
+  const [addressType, setAddressType] = React.useState('');
+  const [st1, setSt1] = React.useState('');
+  const [st2, setSt2] = React.useState('');
+  const [city, setCity] = React.useState('');
+  const [state, setState] = React.useState('');
+  const [zip, setZip] = React.useState('');
+  const [country, setCountry] = React.useState('');
+  const [notes, setNotes] = React.useState('');
+  const [tags, setTags] = React.useState('');
+  const [dob, setDob] = React.useState('');
+  const [occupation, setOccupation] = React.useState('');
+  const [title, setTitle] = React.useState('');
+
+  const [employer, setEmployer] = React.useState('');
+  const [jobTitle, setJobTitle] = React.useState('');
+  const [spouseEmployer, setSpouseEmployer] = React.useState('');
+  const [spouseName, setSpouseName] = React.useState('');
+  const [spouseOccupation, setSpouseOccupation] = React.useState('');
+
+  const [secEmail, setSecEmail] = React.useState('');
+  const [secAddressType, setSecAddressType] = React.useState('');
+  const [secSt1, setSecSt1] = React.useState('');
+  const [secSt2, setSecSt2] = React.useState('');
+  const [secCity, setSecCity] = React.useState('');
+  const [secState, setSecState] = React.useState('');
+  const [secZip, setSecZip] = React.useState('');
+  const [secCountry, setSecCountry] = React.useState('');
+
+  const [prevDonations, setPrevDonations] = React.useState('');
+  const [lastDonationDate, setLastDonationDate] = React.useState('');
+  const [paymentType, setPaymentType] = React.useState('');
+  const [createdDate, setCreatedDate] = React.useState('');
+  const [group, setGroup] = React.useState('');
+  const [callList, setCallList] = React.useState('');
+
   const [users, setUsers] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
   const [openErrorModal, setOpenErrorModal] = React.useState(false);
@@ -178,6 +214,255 @@ const Form = () => {
           value={gender}
           fullWidth
         />
+      </Stack>
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+      <TextField
+          type="text"
+          label="Household Name"
+          onChange={e => setHouseholdName(e.target.value)}
+          value={householdName}
+          fullWidth
+        />
+      <TextField
+          type="text"
+          label="Primary Address Type"
+          onChange={e => setAddressType(e.target.value)}
+          value={addressType}
+          fullWidth
+        /> 
+      </Stack> 
+      <TextField
+          type="text"
+          label="Primary Street 1"
+          onChange={e => setSt1(e.target.value)}
+          value={st1}
+          fullWidth
+          sx={{ mb: 4 }}
+        /> 
+      <TextField
+          type="text"
+          label="Primary Street 2"
+          onChange={e => setSt2(e.target.value)}
+          value={st2}
+          fullWidth
+          sx={{ mb: 4 }}
+        /> 
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+          type="text"
+          label="Primary City"
+          onChange={e => setCity(e.target.value)}
+          value={city}
+          fullWidth
+        /> 
+        <TextField
+          type="text"
+          label="Primary State"
+          onChange={e => setState(e.target.value)}
+          value={state}
+          fullWidth
+        /> 
+        <TextField
+          type="text"
+          label="Primary Zip Code"
+          onChange={e => setZip(e.target.value)}
+          value={zip}
+          fullWidth
+        /> 
+        <TextField
+          type="text"
+          label="Primary Country"
+          onChange={e => setCountry(e.target.value)}
+          value={country}
+          fullWidth
+        />
+      </Stack>
+      <TextField
+          type="text"
+          label="Notes"
+          onChange={e => setNotes(e.target.value)}
+          value={notes}
+          fullWidth
+          sx={{ mb: 4 }}
+        /> 
+      <TextField
+          type="text"
+          label="Tags"
+          onChange={e => setTags(e.target.value)}
+          value={tags}
+          fullWidth
+          sx={{ mb: 4 }}
+        />
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+            type="text"
+            label="Date of Birth"
+            onChange={e => setDob(e.target.value)}
+            value={dob}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Occupation"
+            onChange={e => setOccupation(e.target.value)}
+            value={occupation}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Title"
+            onChange={e => setTitle(e.target.value)}
+            value={title}
+            fullWidth
+          />
+      </Stack>
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+            type="text"
+            label="Employer"
+            onChange={e => setEmployer(e.target.value)}
+            value={employer}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Job Title"
+            onChange={e => setJobTitle(e.target.value)}
+            value={jobTitle}
+            fullWidth
+          />
+        </Stack>
+        <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+          <TextField
+            type="text"
+            label="Spouse Full Name"
+            onChange={e => setSpouseName(e.target.value)}
+            value={spouseName}
+            fullWidth
+
+          />
+          <TextField
+            type="text"
+            label="Spouse Employer"
+            onChange={e => setSpouseEmployer(e.target.value)}
+            value={spouseEmployer}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Spouse Occupation"
+            onChange={e => setSpouseOccupation(e.target.value)}
+            value={spouseOccupation}
+            fullWidth
+          />
+        </Stack>
+        <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+            type="text"
+            label="Secondary Email"
+            onChange={e => setSecEmail(e.target.value)}
+            value={secEmail}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Secondary Address Type"
+            onChange={e => setSecAddressType(e.target.value)}
+            value={secAddressType}
+            fullWidth
+          />
+        </Stack>
+        <TextField
+          type="text"
+          label="Secondary Street 1"
+          onChange={e => setSecSt1(e.target.value)}
+          value={secSt1}
+          fullWidth
+          sx={{ mb: 4 }}
+        />
+        <TextField
+          type="text"
+          label="Secondary Street 2"
+          onChange={e => setSecSt2(e.target.value)}
+          value={secSt2}
+          fullWidth
+          sx={{ mb: 4 }}
+        />
+        <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+            type="text"
+            label="Secondary City"
+            onChange={e => setSecCity(e.target.value)}
+            value={secCity}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Secondary State"
+            onChange={e => setSecState(e.target.value)}
+            value={secState}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Secondary Zip Code"
+            onChange={e => setSecZip(e.target.value)}
+            value={secZip}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Secondary Country"
+            onChange={e => setSecCountry(e.target.value)}
+            value={secCountry}
+            fullWidth
+          />
+      </Stack>
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+            type="text"
+            label="Total Previous Donations"
+            onChange={e => setPrevDonations(e.target.value)}
+            value={prevDonations}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Last Donation Date (MM/DD/YY)"
+            onChange={e => setLastDonationDate(e.target.value)}
+            value={lastDonationDate}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Payment Type (Last Donation)"
+            onChange={e => setPaymentType(e.target.value)}
+            value={paymentType}
+            fullWidth
+          />
+      </Stack>
+      <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+        <TextField
+            type="text"
+            label="Created Date"
+            onChange={e => setCreatedDate(e.target.value)}
+            value={createdDate}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Group"
+            onChange={e => setGroup(e.target.value)}
+            value={group}
+            fullWidth
+          />
+          <TextField
+            type="text"
+            label="Call List"
+            onChange={e => setCallList(e.target.value)}
+            value={callList}
+            fullWidth
+          />
       </Stack>
       <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }} justifyContent="flex-end">
         <Button variant="outlined" onClick={handleOpenModal}>See Previously Added Users</Button>
