@@ -34,7 +34,7 @@ function App() {
           <br /> 3. Repeat these steps for the next contact. 
           <br />
             <br />When you have finished adding all contacts, press "Generate CSV" to review and download your file.</p>
-          <Form />
+          <Form showUploadButton={false}/>
         </Container>
         
         <Container id="add">
@@ -44,12 +44,8 @@ function App() {
           <br /> 3. Repeat these steps for the next contact. 
           <br />
             <br />When you have finished adding all contacts, press "Generate CSV" to review and download your file.</p>
-            <Stack sx={{ marginBottom: 2 }} direction="row" justifyContent="center">
-              <Button variant="outlined" onClick={getUploadedFile}>
-                Upload File
-              </Button>
-            </Stack>
-          <Form/>
+            
+          <Form showUploadButton={true}/>
 
         </Container>
         

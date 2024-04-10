@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 
-const Form = () => {
+const Form = ({ showUploadButton }) => {
   const [firstName, setFirstName] = React.useState('');
   const [middleName, setMiddleName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
@@ -75,7 +75,7 @@ const Form = () => {
     let csvContent = "First Name,Middle Name,Last Name,Primary Email,Cell Phone,Home Phone,Work Phone,Company Name,Account Number,Donor Type,Gender,Household Name,Primary Address Type,Primary Street 1,Primary Street 2,Primary City,Primary State,Primary Zip Code,Primary Country,Notes,Tags,Date of Birth,Occupation,Title,Employer,Job Title,Spouse Employer,Spouse Full Name,Spouse Occupation,Secondary Email,Secondary Address Type,Secondary Street 1,Secondary Street 2,Secondary City,Secondary State,Secondary Zip Code,Secondary Country,Total Previous Donations,Last Donation Date (MM/DD/YY),Payment Type (Last Donation),Created Date,Group,Call List\n";
   
     users.forEach(user => {
-      csvContent += `${user.firstName ?? ''},${user.middleName ?? ''},${user.lastName ?? ''},${user.email ?? ''},${user.cellPhone ?? ''},${user.homePhone ?? ''},${user.companyPhone ?? ''},${user.accountNum ?? ''},${user.donorType ?? ''},${user.gender ?? ''},${user.householdName ?? ''},${user.addressType ?? ''},${user.st1 ?? ''},${user.st2 ?? ''},${user.city ?? ''},${user.state ?? ''},${user.zip ?? ''},${user.country ?? ''},${user.notes ?? ''},${user.tags ?? ''},${user.dob ?? ''},${user.occupation ?? ''},${user.title ?? ''},${user.employer ?? ''},${user.jobTitle ?? ''},${user.spouseEmployer ?? ''},${user.spouseName ?? ''},${user.spouseOccupation ?? ''},${user.secEmail ?? ''},${user.secAddressType ?? ''},${user.secSt1 ?? ''},${user.secSt2 ?? ''},${user.secCity ?? ''},${user.secState ?? ''},${user.secZip ?? ''},${user.secCountry ?? ''},${user.prevDonations ?? ''},${user.lastDonationDate ?? ''},${user.paymentType ?? ''},${user.createdDate ?? ''},${user.group ?? ''},${user.callList ?? ''}\n`;
+      csvContent += `${user.firstName ?? ''},${user.middleName ?? ''},${user.lastName ?? ''},${user.email ?? ''},${user.cellPhone ?? ''},${user.homePhone ?? ''},${user.companyPhone ?? ''},${user.employer ?? ''},${user.accountNum ?? ''},${user.donorType ?? ''},${user.gender ?? ''},${user.householdName ?? ''},${user.addressType ?? ''},${user.st1 ?? ''},${user.st2 ?? ''},${user.city ?? ''},${user.state ?? ''},${user.zip ?? ''},${user.country ?? ''},${user.notes ?? ''},${user.tags ?? ''},${user.dob ?? ''},${user.occupation ?? ''},${user.title ?? ''},${user.employer ?? ''},${user.jobTitle ?? ''},${user.spouseEmployer ?? ''},${user.spouseName ?? ''},${user.spouseOccupation ?? ''},${user.secEmail ?? ''},${user.secAddressType ?? ''},${user.secSt1 ?? ''},${user.secSt2 ?? ''},${user.secCity ?? ''},${user.secState ?? ''},${user.secZip ?? ''},${user.secCountry ?? ''},${user.prevDonations ?? ''},${user.lastDonationDate ?? ''},${user.paymentType ?? ''},${user.createdDate ?? ''},${user.group ?? ''},${user.callList ?? ''}\n`;
     });
   
     const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
@@ -84,6 +84,106 @@ const Form = () => {
     link.setAttribute("download", "users.csv");
     document.body.appendChild(link);
     link.click();
+  };
+
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Check file type
+    if (file.type !== 'text/csv') {
+      setErrorType('Invalid file type. Please upload a CSV file.');
+      setOpenErrorModal(true);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target.result;
+      const rows = content.split('\n');
+      const headers = rows[0].split(',');
+
+      // Check if CSV headers are valid
+      const expectedHeaders = [  "First Name",  "Middle Name",  "Last Name",  "Primary Email",  "Cell Phone",  "Home Phone",  "Work Phone",  "Company Name",  "Account Number",  "Donor Type",  "Gender",  "Household Name",  "Primary Address Type",  "Primary Street 1",  "Primary Street 2",  "Primary City",  "Primary State",  "Primary Zip Code",  "Primary Country",  "Notes",  "Tags",  "Date of Birth",  "Occupation",  "Title",  "Employer",  "Job Title",  "Spouse Employer",  "Spouse Full Name",  "Spouse Occupation",  "Secondary Email",  "Secondary Address Type",  "Secondary Street 1",  "Secondary Street 2",  "Secondary City",  "Secondary State",  "Secondary Zip Code",  "Secondary Country",  "Total Previous Donations",  "Last Donation Date (MM/DD/YY)",  "Payment Type (Last Donation)",  "Created Date",  "Group",  "Call List"];
+      if (!expectedHeaders.every(header => headers.includes(header))) {
+        setErrorType('Invalid CSV format. Please ensure all required headers are present.');
+        setOpenErrorModal(true);
+        return;
+      }
+
+      // Mapping between CSV headers and user object keys
+      const headerToKeyMap = {
+        "First Name": "firstName",
+        "Middle Name": "middleName",
+        "Last Name": "lastName",
+        "Primary Email": "email",
+        "Cell Phone": "cellPhone",
+        "Home Phone": "homePhone",
+        "Work Phone": "companyPhone",
+        "Company Name": "employer",
+        "Account Number": "accountNum",
+        "Donor Type": "donorType",
+        "Gender": "gender",
+        "Household Name": "householdName",
+        "Primary Address Type": "addressType",
+        "Primary Street 1": "st1",
+        "Primary Street 2": "st2",
+        "Primary City": "city",
+        "Primary State": "state",
+        "Primary Zip Code": "zip",
+        "Primary Country": "country",
+        "Notes": "notes",
+        "Tags": "tags",
+        "Date of Birth": "dob",
+        "Occupation": "occupation",
+        "Title": "title",
+        "Employer": "employer",
+        "Job Title": "jobTitle",
+        "Spouse Full Name": "spouseName",
+        "Spouse Employer": "spouseEmployer",
+        "Spouse Occupation": "spouseOccupation",
+        "Secondary Email": "secEmail",
+        "Secondary Address Type": "secAddressType",
+        "Secondary Street 1": "secSt1",
+        "Secondary Street 2": "secSt2",
+        "Secondary City": "secCity",
+        "Secondary State": "secState",
+        "Secondary Zip Code": "secZip",
+        "Secondary Country": "secCountry",
+        "Total Previous Donations": "prevDonations",
+        "Last Donation Date (MM/DD/YY)": "lastDonationDate",
+        "Payment Type (Last Donation)": "paymentType",
+        "Created Date": "createdDate",
+        "Group": "group",
+        "Call List": "callList"
+      };
+
+      // Parse CSV data into users array
+      const parsedUsers = [];
+      for (let i = 1; i < rows.length - 1; i++) {
+        const userData = rows[i].split(',');
+       
+        if (userData.length !== headers.length) continue; // Skip invalid rows
+        const user = {};
+        headers.forEach((header, index) => {
+          const key = headerToKeyMap[header];
+          if (key) {
+            user[key] = userData[index];
+          }
+        });
+
+
+
+        parsedUsers.push(user);
+      }
+
+      console.log(parsedUsers)
+      // Update users state with parsed data
+      setUsers(parsedUsers);
+    };
+
+    reader.readAsText(file);
   };
 
   const handleAddUser = () => {
@@ -274,6 +374,10 @@ const Form = () => {
 
   return (
     <React.Fragment>
+      {showUploadButton && (<Stack sx={{ marginBottom: 2 }} direction="row" justifyContent="center">
+        <input type="file" onChange={handleFileUpload}>
+        </input>
+      </Stack>)}
     <Box
       sx={{
         padding: 3,
