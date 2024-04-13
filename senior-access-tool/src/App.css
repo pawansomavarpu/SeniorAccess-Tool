@@ -28,6 +28,18 @@
   color: #61dafb;
 }
 
+.button {
+  padding: 10px 20px;
+  border-radius: 50px; /* Adjust this value to control the roundness */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.background {
+  background-color: #cfe2f3;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
