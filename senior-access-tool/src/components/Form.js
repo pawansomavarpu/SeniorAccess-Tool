@@ -381,7 +381,7 @@ const Form = ({ showUploadButton }) => {
     <Box
       sx={{
         padding: 3,
-        border: '1px solid #ccc',
+        border: '1px solid #073763',
         borderRadius: 4,
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         maxWidth: 600,

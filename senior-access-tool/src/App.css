@@ -40,6 +40,12 @@
   background-color: #cfe2f3;
 }
 
+@font-face {
+  font-family: 'Inter';
+  font-style: NORMAL;
+  src: url(./Inter/Inter-VariableFont_slnt\,wght.ttf) format('truetype');
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

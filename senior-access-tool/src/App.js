@@ -4,7 +4,6 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Form from './components/Form';
-import '@fontsource/inter/index.css';
 
 
 function App() {
