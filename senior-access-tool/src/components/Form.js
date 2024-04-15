@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Stack, Dialog, DialogTitle, DialogContent, DialogActions, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, makeStyles} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const Form = ({ showUploadButton }) => {
@@ -189,9 +189,38 @@ const Form = ({ showUploadButton }) => {
   const handleAddUser = () => {
     // Check if the required fields are filled (e.g., at least the first name)
     if (!firstName) {
-      setErrorType('An empty user cannot be added. You must provide at least a first name.');
+      setErrorType('An empty contact cannot be added. You must provide at least a first name.');
       setOpenErrorModal(true);
       return;
+    }
+
+    if (email && email.trim() !== '') {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isValidEmail = emailPattern.test(email.trim());
+  
+      if (!isValidEmail) {
+        setErrorType('Invalid email format. Please provide a valid email address.');
+        setOpenErrorModal(true);
+        return;
+      }
+  
+      // Trim and normalize the email input
+      const normalizedEmail = email.trim().toLowerCase();
+  
+      // Check if the email already exists in the current list of users
+      const isDuplicateEmail = users.some((user) => {
+        // Trim and normalize the user's email from the list
+        const userEmail = user.email ? user.email.trim().toLowerCase() : '';
+  
+        // Compare normalized email values
+        return userEmail === normalizedEmail;
+      });
+  
+      if (editIndex == null && isDuplicateEmail) {
+        setErrorType('A contact with this email has already been inputted. Please provide a different email.');
+        setOpenErrorModal(true);
+        return;
+      }
     }
   
     // Prepare the user object with all form field values
@@ -356,6 +385,15 @@ const Form = ({ showUploadButton }) => {
     setCallList(userToEdit.callList);
     setEditIndex(index); // Set the editIndex to the index of the user being edited
     setOpenModal(false); // Close the modal to edit the specific user
+  };
+
+  const handleDeleteUser = (index) => {
+    // Create a copy of the current users array
+    const updatedUsers = [...users];
+    // Remove the user at the specified index
+    updatedUsers.splice(index, 1);
+    // Update the state with the modified users array
+    setUsers(updatedUsers);
   };
 
   function storeCurrentUser(event) {
@@ -748,6 +786,7 @@ const Form = ({ showUploadButton }) => {
                 <TableRow>
                   {/* Define table headers for all user fields */}
                   <TableCell>Edit</TableCell> {/* Column for edit action */}
+                  <TableCell>Delete</TableCell>
                   <TableCell>First Name</TableCell>
                   <TableCell>Middle Name</TableCell>
                   <TableCell>Last Name</TableCell>
@@ -800,6 +839,11 @@ const Form = ({ showUploadButton }) => {
                     <TableCell>
                       <IconButton onClick={() => handleEditUser(index)}>
                         <EditIcon />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell>
+                      <IconButton onClick={() => handleDeleteUser(index)}>
+                        <DeleteIcon />
                       </IconButton>
                     </TableCell>
                     <TableCell>{user.firstName}</TableCell>
